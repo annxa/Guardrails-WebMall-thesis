@@ -193,3 +193,6 @@ cython_debug/
 .cursorignore
 .cursorindexingignore.DS_Store
 task_results/
+.DS_Store
+docker_all/backup/
+task_results/
