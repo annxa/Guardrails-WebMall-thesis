@@ -6,8 +6,8 @@ import logging
 import bgym
 from dotenv import load_dotenv
 from pathlib import Path
-from webmall_overrides.env_args import EnvArgsWebMall
-from webmall_overrides.exp_args import ExpArgsWebMall
+from webmall_adversarial_overrides.env_args import EnvArgsWebMall
+from webmall_adversarial_overrides.exp_args import ExpArgsWebMall
 
 from agentlab.agents.visualwebmall_agent.agent import WA_AGENT_4O
 from agentlab.agents.generic_agent import AGENT_4o_VISION
@@ -78,6 +78,10 @@ FLAGS_AX_M = FLAGS_default.copy()
 FLAGS_AX_M.use_memory = True
 FLAGS_AX_M.extra_instructions = 'Use your memory to note down important information like the URLs of potential solutions and corresponding pricing information.'
 
+AGENT_4O_AX = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"],
+    flags=FLAGS_AX,
+)
 AGENT_41_AX = GenericAgentArgs(
     chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"],
     flags=FLAGS_AX,
@@ -120,7 +124,7 @@ AGENT_CLAUDE_AX_M = GenericAgentArgs(
 
 # example for a single task
 env_args = EnvArgsWebMall(
-    task_name="webmall.Webmall_Find_Specific_Product_Task6",
+    task_name="webmall_adversarial.DL_01",
     task_seed=0,
     max_steps=30,
     record_video=True,
@@ -132,7 +136,7 @@ env_args = EnvArgsWebMall(
 agent = AGENT_41_AX
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")
 
-chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]
+chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"]
 #chat_model_args = CHAT_MODEL_ARGS_DICT["anthropic/claude-sonnet-4-20250514"]
 
 exp_args = [

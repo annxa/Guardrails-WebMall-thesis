@@ -8,7 +8,6 @@ import gymnasium as gym
 
 
 
-
 @dataclass
 class EnvArgsWebMall(EnvArgs):
     def make_env(
