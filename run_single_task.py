@@ -22,6 +22,8 @@ from agentlab.experiments import args
 from agentlab.llm.llm_configs import CHAT_MODEL_ARGS_DICT
 
 from agentlab.agents.generic_agent.generic_agent import GenericAgent, GenericPromptFlags, GenericAgentArgs
+from agentlab.agents.webmall_adversarial_guarded_agent.guarded_agent import GuardedGenericAgentArgs
+
 
 FLAGS_default = GenericPromptFlags(
     obs=dp.ObsFlags(
@@ -124,7 +126,7 @@ AGENT_CLAUDE_AX_M = GenericAgentArgs(
 
 # example for a single task
 env_args = EnvArgsWebMall(
-    task_name="webmall_adversarial.DL_01",
+    task_name="webmall_adversarial.IS_04",
     task_seed=0,
     max_steps=30,
     record_video=True,
@@ -132,11 +134,19 @@ env_args = EnvArgsWebMall(
 )
 
 
+AGENT_41_AX_GUARDED = GuardedGenericAgentArgs(
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"],
+    flags=FLAGS_AX,
+    guardrail_config={
+        "rule_based_gl": True,
+        "log_path": "guardrail_log.json"
+    }
+)
 
-agent = AGENT_41_AX
+agent = AGENT_41_AX_GUARDED
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")
 
-chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4o-mini-2024-07-18"]
+chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]
 #chat_model_args = CHAT_MODEL_ARGS_DICT["anthropic/claude-sonnet-4-20250514"]
 
 exp_args = [
