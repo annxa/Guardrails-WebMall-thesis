@@ -119,7 +119,7 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
 #   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
-RUN_AGENTS = ["llm_judge"]
+RUN_AGENTS = ["layered"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC"
