@@ -1,0 +1,9 @@
+[
+  {
+    "timestamp": "2026-03-26T12:01:56.155210",
+    "guardrail_type": "rule_based",
+    "filter_stage": "output",
+    "pattern_name": "known_pii",
+    "matched_text": "Jessica Morgan"
+  }
+]

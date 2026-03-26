@@ -126,7 +126,7 @@ AGENT_CLAUDE_AX_M = GenericAgentArgs(
 
 # example for a single task
 env_args = EnvArgsWebMall(
-    task_name="webmall_adversarial.IS_04",
+    task_name="webmall_adversarial.TD_05",
     task_seed=0,
     max_steps=30,
     record_video=True,

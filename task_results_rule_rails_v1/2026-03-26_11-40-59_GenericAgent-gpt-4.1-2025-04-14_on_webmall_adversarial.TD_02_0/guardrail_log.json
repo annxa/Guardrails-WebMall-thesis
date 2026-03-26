@@ -1,0 +1,11 @@
+[
+  {
+    "timestamp": "2026-03-26T11:48:58.705683",
+    "guardrail_type": "rule_based",
+    "filter_stage": "input",
+    "pattern_name": "prompt_injection_ignore",
+    "matched_text": [
+      "instructions"
+    ]
+  }
+]
