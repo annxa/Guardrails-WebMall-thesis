@@ -69,9 +69,10 @@ FLAGS_AX = GenericPromptFlags(
 
 # --- Agent configs ---
 CHAT_MODEL = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]
+CHAT_MODEL_5 = CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"]  
 
 AGENT_NO_RAILS = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL,
+    chat_model_args=CHAT_MODEL_5,
     flags=FLAGS_AX,
 )
 
@@ -119,11 +120,11 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
 #   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
-RUN_AGENTS = ["layered"]
+RUN_AGENTS = ["no_rails"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC"
-RUN_CATEGORIES = ["DL","IS", "TD", "PC"]
+RUN_CATEGORIES = ["PC"]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -155,8 +156,8 @@ for agent in agent_configs:
             task_name=f"webmall_adversarial.{task_id}",
             task_seed=0,
             max_steps=30,
-            headless=False,
-            record_video=True,
+            headless=True,
+            record_video=False,
         )
         exp_args.append(
             ExpArgsWebMall(
@@ -170,6 +171,6 @@ if __name__ == "__main__":
     run_experiments(
         n_jobs=1,
         exp_args_list=exp_args,
-        study_dir=str(current_file.parent / "task_results_prompt_rails_v1"),
+        study_dir=str(current_file.parent / "task_results_gpt5"),
         parallel_backend="sequential",
     )

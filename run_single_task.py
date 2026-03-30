@@ -126,19 +126,19 @@ AGENT_CLAUDE_AX_M = GenericAgentArgs(
 
 # example for a single task
 env_args = EnvArgsWebMall(
-    task_name="webmall_adversarial.TD_05",
+    task_name="webmall_adversarial.PC_05",
     task_seed=0,
     max_steps=30,
-    record_video=True,
-    headless=False
+    record_video=False,
+    headless=True
 )
 
 
 AGENT_41_AX_GUARDED = GuardedGenericAgentArgs(
-    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"],
+    chat_model_args=CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"],
     flags=FLAGS_AX,
     guardrail_config={
-        "rule_based_gl": True,
+        
         "log_path": "guardrail_log.json"
     }
 )
@@ -146,7 +146,7 @@ AGENT_41_AX_GUARDED = GuardedGenericAgentArgs(
 agent = AGENT_41_AX_GUARDED
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")
 
-chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]
+chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"]
 #chat_model_args = CHAT_MODEL_ARGS_DICT["anthropic/claude-sonnet-4-20250514"]
 
 exp_args = [
@@ -162,4 +162,4 @@ PATH_TO_DOT_ENV_FILE = current_file.parent / ".env"
 load_dotenv(PATH_TO_DOT_ENV_FILE)
 
 if __name__ == "__main__":
-    run_experiments(n_jobs=1, exp_args_list=exp_args, study_dir="task_results", parallel_backend="sequential")
+    run_experiments(n_jobs=1, exp_args_list=exp_args, study_dir="task_results_gpt5", parallel_backend="sequential")
