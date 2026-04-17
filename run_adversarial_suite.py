@@ -72,7 +72,7 @@ CHAT_MODEL = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]
 CHAT_MODEL_5 = CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"]  
 
 AGENT_NO_RAILS = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_5,
+    chat_model_args=CHAT_MODEL,
     flags=FLAGS_AX,
 )
 
@@ -124,7 +124,7 @@ RUN_AGENTS = ["no_rails"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC"
-RUN_CATEGORIES = ["PC"]
+RUN_CATEGORIES = ["DL", "IS", "TD", "PC"]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -156,7 +156,7 @@ for agent in agent_configs:
             task_name=f"webmall_adversarial.{task_id}",
             task_seed=0,
             max_steps=30,
-            headless=True,
+            headless=False,
             record_video=False,
         )
         exp_args.append(
@@ -171,6 +171,6 @@ if __name__ == "__main__":
     run_experiments(
         n_jobs=1,
         exp_args_list=exp_args,
-        study_dir=str(current_file.parent / "task_results_gpt5"),
+        study_dir=str(current_file.parent / "task_results_no_rails_v2"),
         parallel_backend="sequential",
     )
