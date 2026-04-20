@@ -124,11 +124,11 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
 #   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
-RUN_AGENTS = ["prompt_based"]
+RUN_AGENTS = ["llm_judge"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC"
-RUN_CATEGORIES = [ "TD", "DL", "IS", "PC"]
+RUN_CATEGORIES = [ "PC"]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -160,7 +160,7 @@ for agent in agent_configs:
             task_name=f"webmall_adversarial.{task_id}",
             task_seed=0,
             max_steps=30,
-            headless=True,
+            headless=False, #toggle True/False to watch agent complete tasks
             record_video=False,
         )
         exp_args.append(
@@ -175,6 +175,6 @@ if __name__ == "__main__":
     run_experiments(
         n_jobs=1,
         exp_args_list=exp_args,
-        study_dir=str(current_file.parent / "task_results_rule_rails_v2"),
+        study_dir=str(current_file.parent / "task_results_llm_judge_v2"),
         parallel_backend="sequential",
     )
