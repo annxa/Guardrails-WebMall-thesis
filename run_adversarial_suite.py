@@ -124,11 +124,11 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
 #   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
-RUN_AGENTS = ["rule_based"]
+RUN_AGENTS = ["prompt_based"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC"
-RUN_CATEGORIES = [ "TD"]
+RUN_CATEGORIES = [ "TD", "DL", "IS", "PC"]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -160,7 +160,7 @@ for agent in agent_configs:
             task_name=f"webmall_adversarial.{task_id}",
             task_seed=0,
             max_steps=30,
-            headless=False,
+            headless=True,
             record_video=False,
         )
         exp_args.append(
