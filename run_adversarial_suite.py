@@ -83,6 +83,7 @@ AGENT_RULE_BASED = GuardedGenericAgentArgs(
         "rule_based_gl": True,
         "prompt_based_gl": False,
         "llm_judge_gl": False,
+        "experiment_version": "v2" #change for experimental version
     }
 )
 
@@ -93,6 +94,7 @@ AGENT_PROMPT_BASED = GuardedGenericAgentArgs(
         "rule_based_gl": False,
         "prompt_based_gl": True,
         "llm_judge_gl": False,
+        "experiment_version": "v2" #change for experimental version
     }
 )
 
@@ -103,6 +105,7 @@ AGENT_LLM_JUDGE = GuardedGenericAgentArgs(
         "rule_based_gl": False,
         "prompt_based_gl": False,
         "llm_judge_gl": True,
+        "experiment_version": "v2" #change for experimental version
     }
 )
 
@@ -113,6 +116,7 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
         "rule_based_gl": True,
         "prompt_based_gl": True,
         "llm_judge_gl": True,
+        "experiment_version": "v2" #change for experimental version
     }
 )
 
@@ -120,11 +124,11 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
 #   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
-RUN_AGENTS = ["no_rails"]
+RUN_AGENTS = ["rule_based"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC"
-RUN_CATEGORIES = ["DL", "IS", "TD", "PC"]
+RUN_CATEGORIES = [ "TD"]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -171,6 +175,6 @@ if __name__ == "__main__":
     run_experiments(
         n_jobs=1,
         exp_args_list=exp_args,
-        study_dir=str(current_file.parent / "task_results_no_rails_v2"),
+        study_dir=str(current_file.parent / "task_results_rule_rails_v2"),
         parallel_backend="sequential",
     )
