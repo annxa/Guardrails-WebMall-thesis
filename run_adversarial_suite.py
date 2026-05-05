@@ -6,7 +6,6 @@ Configurations:
     - rule_based: rule-based input/output filtering only
     - prompt_based: defense system prompt only
     - llm_judge: LLM-as-a-judge output filtering only
-    - llm_input_judge: LLM-as-a-judge input redaction only
     - layered: all guardrails enabled
 """
 
@@ -73,7 +72,7 @@ CHAT_MODEL = CHAT_MODEL_ARGS_DICT["openai/gpt-4.1-2025-04-14"]
 CHAT_MODEL_5 = CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"]  
 
 AGENT_NO_RAILS = GenericAgentArgs(
-    chat_model_args=CHAT_MODEL_5,
+    chat_model_args=CHAT_MODEL,
     flags=FLAGS_AX,
 )
 
@@ -84,8 +83,8 @@ AGENT_RULE_BASED = GuardedGenericAgentArgs(
         "rule_based_gl": True,
         "prompt_based_gl": False,
         "llm_judge_gl": False,
-        "llm_input_judge_gl": False,
-        "experiment_version": "v2"
+        
+        "experiment_version": "v1"
     }
 )
 
@@ -96,7 +95,7 @@ AGENT_PROMPT_BASED = GuardedGenericAgentArgs(
         "rule_based_gl": False,
         "prompt_based_gl": True,
         "llm_judge_gl": False,
-        "llm_input_judge_gl": False,
+        
         "experiment_version": "v2"
     }
 )
@@ -108,23 +107,11 @@ AGENT_LLM_JUDGE = GuardedGenericAgentArgs(
         "rule_based_gl": False,
         "prompt_based_gl": False,
         "llm_judge_gl": True,
-        "llm_input_judge_gl": False,
+        
         "experiment_version": "v2"
     }
 )
 
-AGENT_LLM_INPUT_JUDGE = GuardedGenericAgentArgs(
-    chat_model_args=CHAT_MODEL,
-    flags=FLAGS_AX.copy(),
-    guardrail_config={
-        "rule_based_gl": False,
-        "prompt_based_gl": False,
-        "llm_judge_gl": False,
-        "llm_input_judge_gl": True,
-        "input_judge_threshold": 0.7,
-        "experiment_version": "v2"
-    }
-)
 
 AGENT_LAYERED = GuardedGenericAgentArgs(
     chat_model_args=CHAT_MODEL,
@@ -141,11 +128,11 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
 #   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
-RUN_AGENTS = ["no_rails"]
+RUN_AGENTS = ["rule_based"]
 
 # Task categories to run: choose any subset of:
-#   "DL", "IS", "TD", "PC"
-RUN_CATEGORIES = [ "PC"]
+#   "DL", "IS", "TD", "PC", "RA"
+RUN_CATEGORIES = [ "RA"]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -153,7 +140,6 @@ _ALL_AGENT_CONFIGS = {
     "rule_based": AGENT_RULE_BASED,
     "prompt_based": AGENT_PROMPT_BASED,
     "llm_judge": AGENT_LLM_JUDGE,
-    "llm_input_judge": AGENT_LLM_INPUT_JUDGE,
     "layered": AGENT_LAYERED,
 }
 
@@ -162,6 +148,7 @@ _ALL_TASK_IDS = [
     "IS_01", "IS_02", "IS_03", "IS_04", "IS_05",
     "TD_01", "TD_02", "TD_03", "TD_04", "TD_05",
     "PC_01", "PC_02", "PC_03", "PC_04", "PC_05",
+    "RA_01", "RA_02", "RA_03", "RA_04", "RA_05"
 ]
 
 agent_configs = [_ALL_AGENT_CONFIGS[name] for name in RUN_AGENTS]
@@ -193,6 +180,6 @@ if __name__ == "__main__":
     run_experiments(
         n_jobs=1,
         exp_args_list=exp_args,
-        study_dir=str(current_file.parent / "task_results_GPT_5_v2"),
+        study_dir=str(current_file.parent / "task_results_rule_rails_v1"),
         parallel_backend="sequential",
     )
