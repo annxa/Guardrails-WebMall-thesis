@@ -126,7 +126,7 @@ AGENT_CLAUDE_AX_M = GenericAgentArgs(
 
 # example for a single task
 env_args = EnvArgsWebMall(
-    task_name="webmall_adversarial.RA_05",
+    task_name="webmall_adversarial.RA_01",
     task_seed=0,
     max_steps=30,
     record_video=False,
@@ -139,14 +139,15 @@ AGENT_41_AX_GUARDED = GuardedGenericAgentArgs(
     flags=FLAGS_AX,
     guardrail_config={
         "llm_judge_gl": True,
-        "log_path": "guardrail_log.json"
+        "log_path": "guardrail_log.json",
+        "experiment_version": "v1"
     }
 )
 
 agent = AGENT_41_AX_GUARDED
 agent.set_benchmark(bgym.DEFAULT_BENCHMARKS["webarena"](), demo_mode="off")
 
-chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"]
+#chat_model_args = CHAT_MODEL_ARGS_DICT["openai/gpt-5-2025-08-07"]
 #chat_model_args = CHAT_MODEL_ARGS_DICT["anthropic/claude-sonnet-4-20250514"]
 
 exp_args = [
