@@ -10,6 +10,7 @@ Configurations:
 """
 
 import logging
+import os
 import bgym
 from dotenv import load_dotenv
 from pathlib import Path
@@ -25,6 +26,10 @@ from agentlab.agents.webmall_adversarial_guarded_agent.guarded_agent import Guar
 current_file = Path(__file__).resolve()
 PATH_TO_DOT_ENV_FILE = current_file.parent / ".env"
 load_dotenv(PATH_TO_DOT_ENV_FILE)
+
+# Drives both the task file loaded by task.py and the guardrail behaviour.
+# Set WEBMALL_TASK_VERSION=v1 or v2 in .env — do not change experiment_version below.
+EXPERIMENT_VERSION = os.getenv("WEBMALL_TASK_VERSION", "v2")
 
 # --- Flags ---
 FLAGS_AX = GenericPromptFlags(
@@ -83,8 +88,7 @@ AGENT_RULE_BASED = GuardedGenericAgentArgs(
         "rule_based_gl": True,
         "prompt_based_gl": False,
         "llm_judge_gl": False,
-        
-        "experiment_version": "v1"
+        "experiment_version": EXPERIMENT_VERSION,
     }
 )
 
@@ -95,8 +99,7 @@ AGENT_PROMPT_BASED = GuardedGenericAgentArgs(
         "rule_based_gl": False,
         "prompt_based_gl": True,
         "llm_judge_gl": False,
-        
-        "experiment_version": "v2"
+        "experiment_version": EXPERIMENT_VERSION,
     }
 )
 
@@ -107,11 +110,9 @@ AGENT_LLM_JUDGE = GuardedGenericAgentArgs(
         "rule_based_gl": False,
         "prompt_based_gl": False,
         "llm_judge_gl": True,
-        
-        "experiment_version": "v2"
+        "experiment_version": EXPERIMENT_VERSION,
     }
 )
-
 
 AGENT_LAYERED = GuardedGenericAgentArgs(
     chat_model_args=CHAT_MODEL,
@@ -120,19 +121,25 @@ AGENT_LAYERED = GuardedGenericAgentArgs(
         "rule_based_gl": True,
         "prompt_based_gl": True,
         "llm_judge_gl": True,
-        "experiment_version": "v2"
+        "experiment_version": EXPERIMENT_VERSION,
     }
+)
+
+AGENT_GPT5_NO_RAILS = GenericAgentArgs(
+    chat_model_args=CHAT_MODEL_5,
+    flags=FLAGS_AX,
 )
 
 # ============================================================
 # EXPERIMENT SELECTION — edit these before running
 # Agent configs to run: choose any subset of:
-#   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered"
+#   "no_rails", "rule_based", "prompt_based", "llm_judge", "layered", "gpt5_no_rails"
+# Set WEBMALL_TASK_VERSION in .env to match the iteration (v1 or v2).
 RUN_AGENTS = ["rule_based"]
 
 # Task categories to run: choose any subset of:
 #   "DL", "IS", "TD", "PC", "RA"
-RUN_CATEGORIES = [ "RA"]
+RUN_CATEGORIES = [ "DL", "IS", "TD", "PC", "RA" ]
 # ============================================================
 
 _ALL_AGENT_CONFIGS = {
@@ -141,6 +148,7 @@ _ALL_AGENT_CONFIGS = {
     "prompt_based": AGENT_PROMPT_BASED,
     "llm_judge": AGENT_LLM_JUDGE,
     "layered": AGENT_LAYERED,
+    "gpt5_no_rails": AGENT_GPT5_NO_RAILS,
 }
 
 _ALL_TASK_IDS = [

@@ -154,18 +154,19 @@ The following components were added or changed relative to the upstream WebMall 
 
 ## 3. Selecting the Iteration
 
-The task loader in [Browsergym/browsergym/webmall_adversarial/src/browsergym/webmall_adversarial/task.py](Browsergym/browsergym/webmall_adversarial/src/browsergym/webmall_adversarial/task.py) has a hardcoded path that controls which iteration's tasks are loaded. Around line 35:
+Set `WEBMALL_TASK_VERSION` in your `.env` file to control which iteration's tasks are loaded:
 
-```python
-# change this path between task_sets.json and task_sets_v2.json
-# depending on which iteration you want to use
-json_path = Path(__file__).parent / "task_sets_v2.json"
+```
+WEBMALL_TASK_VERSION=v1   # Iteration 1 — loads task_sets.json
+WEBMALL_TASK_VERSION=v2   # Iteration 2 — loads task_sets_v2.json (default)
 ```
 
-- Set to `task_sets.json` → **Iteration 1** (original attacks; also import Iteration 1 SQL dumps)
-- Set to `task_sets_v2.json` → **Iteration 2** (revised attacks; also import Iteration 2 SQL dumps)
+This must be consistent with which SQL dumps you imported and which agent configs you run:
 
-Make sure the task file and the SQL dumps are consistent.
+| `WEBMALL_TASK_VERSION` | Task file | SQL dumps to import | Agent configs |
+|---|---|---|---|
+| `v1` | `task_sets.json` | `shop1–4_dump.sql` | `no_rails`, `rule_based` |
+| `v2` | `task_sets_v2.json` | `webmall_shop1_iteration2.sql` (+ v1 shops 2–4) | `no_rails`, `prompt_based`, `llm_judge`, `layered`, `gpt5_no_rails` |
 
 ---
 
@@ -173,17 +174,16 @@ Make sure the task file and the SQL dumps are consistent.
 
 ### Guardrail conditions
 
-The experiment defines five agent configurations:
+The experiment defines the following agent configurations:
 
-| Condition      | `rule_based_gl` | `prompt_based_gl` | `llm_judge_gl` |
-| -------------- | :-------------: | :---------------: | :------------: |
-| `no_rails`     |        —        |         —         |       —        |
-| `rule_based`   |        ✓        |         —         |       —        |
-| `prompt_based` |        —        |         ✓         |       —        |
-| `llm_judge`    |        —        |         —         |       ✓        |
-| `layered`      |        ✓        |         ✓         |       ✓        |
-
-There is also a `gpt-5` baseline config defined in the file (`CHAT_MODEL_5`) that can be used by substituting the model in any of the above agent configs.
+| Condition        | `rule_based_gl` | `prompt_based_gl` | `llm_judge_gl` | Model   |
+| ---------------- | :-------------: | :---------------: | :------------: | ------- |
+| `no_rails`       |        —        |         —         |       —        | GPT-4.1 |
+| `rule_based`     |        ✓        |         —         |       —        | GPT-4.1 |
+| `prompt_based`   |        —        |         ✓         |       —        | GPT-4.1 |
+| `llm_judge`      |        —        |         —         |       ✓        | GPT-4.1 |
+| `layered`        |        ✓        |         ✓         |       ✓        | GPT-4.1 |
+| `gpt5_no_rails`  |        —        |         —         |       —        | GPT-5   |
 
 ### Where the guardrail implementations live
 
