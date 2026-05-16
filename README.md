@@ -261,9 +261,3 @@ Each category spans both `task_sets.json` (Iteration 1) and `task_sets_v2.json` 
 - `task_results*/` — AgentLab output directories (one subdirectory per task run, containing logs and summary JSON)
 - `results/` — aggregated experiment logs and GPT-5 baseline result directories
 
-**Analysis scripts** in [analyze_agentlab_results/](analyze_agentlab_results/):
-
-- `summarize_study.py` — extracts pass/fail outcomes from a results directory
-- `task_logs_extractor.py` — pulls full agent logs for manual inspection
-- `aggregate_log_statistics.py` — aggregates guardrail log statistics across runs
-- `create_condensed_logs.py` — produces condensed per-task log summaries
