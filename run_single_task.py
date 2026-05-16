@@ -140,7 +140,6 @@ AGENT_41_AX_GUARDED = GuardedGenericAgentArgs(
     guardrail_config={
         "llm_judge_gl": True,
         "log_path": "guardrail_log.json",
-        "experiment_version": "v1"
     }
 )
 
@@ -163,4 +162,4 @@ PATH_TO_DOT_ENV_FILE = current_file.parent / ".env"
 load_dotenv(PATH_TO_DOT_ENV_FILE)
 
 if __name__ == "__main__":
-    run_experiments(n_jobs=1, exp_args_list=exp_args, study_dir="task_results_llm_judge_v1", parallel_backend="sequential")
+    run_experiments(n_jobs=1, exp_args_list=exp_args, study_dir="task_results_test", parallel_backend="sequential")

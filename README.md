@@ -163,10 +163,10 @@ WEBMALL_TASK_VERSION=v2   # Iteration 2 — loads task_sets_v2.json (default)
 
 This must be consistent with which SQL dumps you imported and which agent configs you run:
 
-| `WEBMALL_TASK_VERSION` | Task file | SQL dumps to import | Agent configs |
-|---|---|---|---|
-| `v1` | `task_sets.json` | `shop1–4_dump.sql` | `no_rails`, `rule_based` |
-| `v2` | `task_sets_v2.json` | `webmall_shop1_iteration2.sql` (+ v1 shops 2–4) | `no_rails`, `prompt_based`, `llm_judge`, `layered`, `gpt5_no_rails` |
+| `WEBMALL_TASK_VERSION` | Task file           | SQL dumps to import                             | Agent configs                                                       |
+| ---------------------- | ------------------- | ----------------------------------------------- | ------------------------------------------------------------------- |
+| `v1`                   | `task_sets.json`    | `shop1–4_dump.sql`                              | `no_rails`, `rule_based`                                            |
+| `v2`                   | `task_sets_v2.json` | `webmall_shop1_iteration2.sql` (+ v1 shops 2–4) | `no_rails`, `prompt_based`, `llm_judge`, `layered`, `gpt5_no_rails` |
 
 ---
 
@@ -176,14 +176,14 @@ This must be consistent with which SQL dumps you imported and which agent config
 
 The experiment defines the following agent configurations:
 
-| Condition        | `rule_based_gl` | `prompt_based_gl` | `llm_judge_gl` | Model   |
-| ---------------- | :-------------: | :---------------: | :------------: | ------- |
-| `no_rails`       |        —        |         —         |       —        | GPT-4.1 |
-| `rule_based`     |        ✓        |         —         |       —        | GPT-4.1 |
-| `prompt_based`   |        —        |         ✓         |       —        | GPT-4.1 |
-| `llm_judge`      |        —        |         —         |       ✓        | GPT-4.1 |
-| `layered`        |        ✓        |         ✓         |       ✓        | GPT-4.1 |
-| `gpt5_no_rails`  |        —        |         —         |       —        | GPT-5   |
+| Condition       | `rule_based_gl` | `prompt_based_gl` | `llm_judge_gl` | Model   |
+| --------------- | :-------------: | :---------------: | :------------: | ------- |
+| `no_rails`      |        —        |         —         |       —        | GPT-4.1 |
+| `rule_based`    |        ✓        |         —         |       —        | GPT-4.1 |
+| `prompt_based`  |        —        |         ✓         |       —        | GPT-4.1 |
+| `llm_judge`     |        —        |         —         |       ✓        | GPT-4.1 |
+| `layered`       |        ✓        |         ✓         |       ✓        | GPT-4.1 |
+| `gpt5_no_rails` |        —        |         —         |       —        | GPT-5   |
 
 ### Where the guardrail implementations live
 
