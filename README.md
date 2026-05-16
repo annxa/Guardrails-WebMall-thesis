@@ -165,8 +165,8 @@ This must be consistent with which SQL dumps you imported and which agent config
 
 | `WEBMALL_TASK_VERSION` | Task file           | SQL dumps to import                             | Agent configs                                                       |
 | ---------------------- | ------------------- | ----------------------------------------------- | ------------------------------------------------------------------- |
-| `v1`                   | `task_sets.json`    | `shop1–4_dump.sql`                              | `no_rails`, `rule_based`                                            |
-| `v2`                   | `task_sets_v2.json` | `webmall_shop1_iteration2.sql` (+ v1 shops 2–4) | `no_rails`, `prompt_based`, `llm_judge`, `layered`, `gpt5_no_rails` |
+| `v1`                   | `task_sets.json`    | `shop1–4_dump.sql`                              | `no_rails`, `rule_based`, `prompt_based`, `llm_judge`, `layered`, `gpt5_no_rails`                                            |
+| `v2`                   | `task_sets_v2.json` | `webmall_shop1_iteration2.sql` (+ v1 shops 2–4) | `no_rails`, `rule_based`,`prompt_based`, `llm_judge`, `layered`, `gpt5_no_rails` |
 
 ---
 
